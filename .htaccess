@@ -1,0 +1,15 @@
+# Forcer HTTPS
+RewriteEngine On 
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{HTTPS} !on
+RewriteRule ^(.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
+# Sécuriser le dossier "includes"
+RewriteRule ^includes/ [NC,FORBIDDEN]
+
+# Interdire de lister le contenu des dossiers
+Options -Indexes
+
+# Redirection vers une page d'erreur personnalisée
+ErrorDocument 404 /404.php
